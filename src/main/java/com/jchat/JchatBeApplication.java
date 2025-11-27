@@ -1,5 +1,6 @@
-package com.jchat.jchatbe;
+package com.jchat;
 
+import com.jchat.mem.controller.MemController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JchatBeApplication {
 
     public static void main(String[] args) {
+        MemController memController = new MemController();
+        memController.testMethod();
         SpringApplication.run(JchatBeApplication.class, args);
     }
 
