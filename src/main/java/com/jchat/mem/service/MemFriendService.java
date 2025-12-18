@@ -1,9 +1,6 @@
 package com.jchat.mem.service;
 
-import com.jchat.mem.dto.SearchUserListReqDto;
-import com.jchat.mem.dto.SearchUserListResDto;
-import com.jchat.mem.dto.SearchUserReqDto;
-import com.jchat.mem.dto.SearchUserResDto;
+import com.jchat.mem.dto.*;
 import com.jchat.mem.mapper.MemFriendMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +23,20 @@ public class MemFriendService {
 
 
         return null;
+    }
+
+    /**
+     * @param {{@link Long} userNo 회원번호
+     * @param userNo
+     */
+    public SearchFriendListResDto searchFriendList(Long userNo) {
+
+        List<ComOtherUser> comOtherUser = memFriendMapper.searchFriendList(userNo);
+
+        return SearchFriendListResDto.builder()
+                .myUserNo(userNo)
+                .friendList(comOtherUser)
+                .build();
     }
 
 }
