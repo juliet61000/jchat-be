@@ -1,15 +1,20 @@
 package com.jchat.chat.controller;
 
-import com.jchat.chat.dto.SearchChatRoomReqDto;
-import com.jchat.chat.dto.SearchChatRoomResDto;
+import com.jchat.chat.dto.SearchChatRoomDtlReqDto;
+import com.jchat.chat.dto.SearchChatRoomDtlResDto;
+import com.jchat.chat.dto.SearchChatRoomListResDto;
 import com.jchat.chat.service.ChatService;
 import com.jchat.common.context.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -19,21 +24,37 @@ public class ChatController {
     private final ChatService chatService;
 
     /**
-     * 채팅방 정보 조회
-     * @param {{@link SearchChatRoomReqDto}} reqDto
-     * @return {{@link SearchChatRoomResDto}}
+     * 채팅방 리스트 정보 조회
      */
-    @GetMapping("/searchChatRoom/{roomId}")
-    public SearchChatRoomResDto searchChatRoom(@PathVariable Long roomId) {
+    @GetMapping("/room")
+    public ResponseEntity<List<SearchChatRoomListResDto>> searchChatRoomListResDto() {
+
+        // 유저컨텍스트 없는 경우
+        if (!UserContext.hasUser()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+
+        List<SearchChatRoomListResDto> resDto = chatService.searhcChatRoomList();
+
+        return ResponseEntity.ok(resDto);
+    }
+
+    /**
+     * 채팅방 디테일 정보 조회
+     * @param roomId {{@link SearchChatRoomDtlReqDto}}
+     * @return {{@link SearchChatRoomDtlResDto}}
+     */
+    @GetMapping("/room/{roomId}")
+    public SearchChatRoomDtlResDto searchChatRoomDtl(@PathVariable Long roomId) {
 
         Long userNo = UserContext.getUserNo();
 
-        SearchChatRoomReqDto reqDto = SearchChatRoomReqDto.builder()
+        SearchChatRoomDtlReqDto reqDto = SearchChatRoomDtlReqDto.builder()
                                                             .roomId(roomId)
                                                             .userNo(userNo)
                                                             .build();
 
-        return chatService.searchChatRoom(reqDto);
+        return chatService.searchChatRoomDtl(reqDto);
     }
 
 }

@@ -98,11 +98,12 @@ public class ChatSequenceProvider {
     }
 
     /**
-     * 어플리케이션 실행시 초기화
+     * 어플리케이션 실행시 시퀀스 큐 초기화
      */
-    @PostConstruct
-    private void init() {
-        log.info("메세지 시퀀스 init 호출");
-        refillSequences();
-    }
+    // TODO 실행시마다 postgresql 시퀀스 호출하여 일시 중지 추후 배포시 주석 예거 필요
+//    @PostConstruct
+//    private void init() {
+//        log.info("메세지 시퀀스 init 호출");
+//        refillSequences();
+//    }
 }

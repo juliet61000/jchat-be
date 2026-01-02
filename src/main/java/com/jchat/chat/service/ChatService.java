@@ -3,6 +3,7 @@ package com.jchat.chat.service;
 import com.jchat.auth.dto.UserInfoDto;
 import com.jchat.chat.dto.*;
 import com.jchat.chat.mapper.ChatMapper;
+import com.jchat.common.context.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -76,11 +77,19 @@ public class ChatService {
     }
 
     /**
-     * 채팅방정보 조회
-     * @param reqDto
-     * @return
+     * 채팅방 리스트 정보 조회
      */
-    public SearchChatRoomResDto searchChatRoom(SearchChatRoomReqDto reqDto) {
+    public List<SearchChatRoomListResDto> searhcChatRoomList() {
+
+        return chatMapper.searchChatRoomList(UserContext.getUserNo());
+    }
+
+    /**
+     * 채팅방 디테일 정보 조회
+     * @param reqDto {{@link SearchChatRoomDtlReqDto}}
+     * @return {{@link SearchChatRoomDtlResDto}}
+     */
+    public SearchChatRoomDtlResDto searchChatRoomDtl(SearchChatRoomDtlReqDto reqDto) {
 
         // 채팅방 기본 정보 조회
         ChatRoom chatRoom = chatMapper.searchChatRoomBasInfo(reqDto);
@@ -89,7 +98,7 @@ public class ChatService {
         // 채팅방메세지리스트 조회
         List<ChatRoomMsg> chatRoomMsg = chatMapper.searchChatRoomMsg(reqDto);
 
-        return SearchChatRoomResDto.builder()
+        return SearchChatRoomDtlResDto.builder()
                 .roomId(reqDto.getRoomId())
                 .chatRoom(chatRoom)
                 .chatRoomUserList(chatRoomUser)
