@@ -12,7 +12,8 @@ public interface ChatMapper {
     Long selectChatRoomMsgSeq(); // 채팅방 메세지 시퀀스
     void insertChatRoomMsg(InsertChatRoomMsgReqDto insertChatRoomMsgReqDto); // 채팅방 메세지 삽입
     ChatRoomMsg searchChatRoomMsgByPk (SearchChatRoomMsgByPkReqDto searchChatRoomMsgByPkReqDto);
-    ChatRoom searchChatRoomBasInfo(SearchChatRoomReqDto searchChatRoomReqDto); // 채팅방 기본 정보 조회
-    List<ChatRoomUser> searchChatRoomUser(SearchChatRoomReqDto searchChatRoomReqDto); // 채팅방 참여자 목록 조회
-    List<ChatRoomMsg> searchChatRoomMsg(SearchChatRoomReqDto searchChatRoomReqDto); // 채팅방 메세지 정보 조회
+    List<SearchChatRoomListResDto> searchChatRoomList (Long userNo);
+    ChatRoom searchChatRoomBasInfo(SearchChatRoomDtlReqDto searchChatRoomDtlReqDto); // 채팅방 기본 정보 조회
+    List<ChatRoomUser> searchChatRoomUser(SearchChatRoomDtlReqDto searchChatRoomDtlReqDto); // 채팅방 참여자 목록 조회
+    List<ChatRoomMsg> searchChatRoomMsg(SearchChatRoomDtlReqDto searchChatRoomDtlReqDto); // 채팅방 메세지 정보 조회
 }

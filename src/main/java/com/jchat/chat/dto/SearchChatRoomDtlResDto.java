@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SearchChatRoomResDto {
+public class SearchChatRoomDtlResDto {
     // 채팅방번호
     private Long roomId;
 
