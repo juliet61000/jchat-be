@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,4 +31,10 @@ public class SearchChatRoomListResDto {
 
     // 츨겨찾기 여부
     private String likeYn;
+
+    // 마지막 메세지
+    private String lastMsgContent;
+
+    // 마지막 메세지 생성일시
+    private String lastMsgCreateTm;
 }
